@@ -1,39 +1,70 @@
 #include <cstddef>
+#include "..\agalib\includes\lists.hh"
 
 namespace Lists{
-    template <typename T>
-    class Linked {
-        private:
-        struct Node {
-            T value;
-            Node* next;
-        };
-        Node* head = nullptr;
-        public:
-        size_t size = 0;
-        bool push(T value){}
-        bool insert(T value, size_t pos){}
-        bool remove(size_t pos){}
-        T pop(){}
-        T get(size_t pos){}
-        size_t find(T value){}
-        bool has(T value){}
-        void clear(){}
-    };
 
-    template <typename T>
-    class Array {
-        private:
-        T* array = nullptr;
-        void expand(size_t len){}
-        bool push(T value){}
-        bool set(T value, size_t pos){}
-        T pop(){}
-        T get(size_t pos){}
-        size_t find(T value){}
-        bool has(T value){}
-        void clear(){}
+    template <class T> Linked<T>::~Linked(){}
+    
+
+    template <class T> bool Linked<T>::push(T value){
+        size++;
+        Node *newNode = new Node;
+        newNode->value = value;
+
+        if(head == nullptr){
+            head = newNode;
+            newNode->next = nullptr;
+            return true;
+        }else{
+            newnode->next = head;
+            head = newNode;
+            return true;
+        }
+
+        return false;
+
+    }
+
+    template <class T> bool Linked<T>::insert(T value, size_t pos){
+        Node *newNode = new Node;
+        newNode->value = value;
+        Node *iterrator = head;
+
+        if(pos > size || pos < 0){
+            throw std::invalid_argument("Index out of bounds!");
+        }else{
+            for(int i = 0; i < pos; i++){
+                *iterrator = iterrator->next;
+            }
+
+            if(pos == 0) head = newNode;
+            newNode->next = iterrator;
+            iterrator->next = newNode;
+            return true;
+        }  
+    	return false;
+    }
+
+    template <class T> bool Linked<T>::remove(size_t pos){
+        Node *iterator = head;
+        if(pos > size - 1){
+            throw std::invalid_argument("Index out of bounds!");
+        }
+        if(pos == 0){
+            head = head->next;
+            delete iterator;
+            return true;
+        }else{
+            for(int i = 0; i < pos; i++){
+                iterator = iterator->next;
+            }
+            Node *help = iterator;
+            iterator->next = iterator->next->next;
+            delete help;
+            return true;
+        }
+        return false;
+    }
 
 
-    };
 }

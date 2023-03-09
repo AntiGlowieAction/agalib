@@ -1,17 +1,33 @@
 #include <cstddef>
+#ifndef AGALIB_LISTS_HH
+#define AGALIB_LISTS_HH
+
 
 namespace Lists {
-    template <typename T>
     /**
      * @brief A singly linked list.
      * A singly linked list of nodes each of which contains a value to which the list was parameterised and a pointer to the next node.
+     * The list is unsorted.
      */
+    template <typename T>
     class Linked {
         private:
         struct Node {
             T value;
             Node* next; 
         };
+
+        /**
+         * @brief Destructor for Linked object.
+         * 
+         */
+        
+        ~Linked();
+
+        /**
+         * @brief Pointer to head of list.
+         * 
+         */
         Node* head = nullptr;
         public:
         /**
@@ -44,7 +60,8 @@ namespace Lists {
 
         /**
          * @brief Removes element at certain index from the list.
-         * Index is determined by pos argument. The element is removed in O(n) time.
+         * Index is determined by pos argument. The first element of the list is indexed as 1
+         * The element is removed in O(n) time.
          * 
          * @param pos 
          * @return true 
@@ -99,7 +116,13 @@ namespace Lists {
     template <typename T>
     class Array {
         public:
+        /**
+         * @brief Pointer to the start of the array
+         * 
+         */
         T* array = nullptr;
+
+
         void expand(size_t len);
         bool push(T value);
         bool set(T value, size_t pos);
@@ -110,3 +133,5 @@ namespace Lists {
         void clear();
     };
 }
+
+#endif
