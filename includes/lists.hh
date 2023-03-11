@@ -21,9 +21,7 @@ namespace Lists {
          * @brief Destructor for Linked object.
          * 
          */
-        
         ~Linked();
-
         /**
          * @brief Pointer to head of list.
          * 
@@ -44,31 +42,6 @@ namespace Lists {
          * @return false 
          */
         bool push(T value);
-
-        /**
-         * @brief Adds an element to the list at a declared index.
-         * Adds an element somewhere in the middle of the list. The number of elements before the new element in the list is determined by the pos
-         * argument. The element is added in O(n) time. Singly linked lists are not great for index specific operations. For such uses see Lists::Array.
-         * 
-         * @see Lists::Array
-         * @param value 
-         * @param pos 
-         * @return true 
-         * @return false 
-         */
-        bool insert(T value, size_t pos);
-
-        /**
-         * @brief Removes element at certain index from the list.
-         * Index is determined by pos argument. The first element of the list is indexed as 1
-         * The element is removed in O(n) time.
-         * 
-         * @param pos 
-         * @return true 
-         * @return false 
-         */
-        bool remove(size_t pos);
-
         /**
          * @brief Removes and return first element of the list.
          * The action is performed in O(1).
@@ -77,25 +50,21 @@ namespace Lists {
          * @return T 
          */
         T pop();
-
         /**
-         * @brief Returns a pointer to an element at certein index in the list. It does not remove the element from the list.
-         *The action happens in O(n) time. Singly linked lists are not great for index specific operations. For such uses see Lists::Array. 
+         * @brief 
          * 
-         * @param pos 
-         * @return T 
          */
-        T get(size_t pos);
-
+        bool remove(T value);
         /**
-         * @brief Search for an element in the list and if it is present return its index.The action happens in O(n) time
-         * 
+         * @brief Search for an element in the list and if it is present return its index. The index of the
+         * first element in the list is equal to 0.The action happens in O(n) time.
+         * If there are multiple copies of the element it returns the position of the first one it finds.
+         * It returns -1 if it did not find the element.
          * @throws todo: add which error is thrown
          * @param value 
          * @return size_t 
          */
         size_t find(T value);
-
         /**
          * @brief Search for an element in the list. If present return true otherwise return false. The action happens in O(n) time.
          * 
@@ -104,7 +73,6 @@ namespace Lists {
          * @return false 
          */
         bool has(T value);
-
         /**
          * @brief Removes every element from the list, making it empty. It also deletes the elements from memory. 
          * The action happens in O(n) time.

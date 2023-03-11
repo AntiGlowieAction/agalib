@@ -1,17 +1,19 @@
 #include <cstddef>
+#include <stdexcept>
 #include "..\agalib\includes\lists.hh"
+
 
 namespace Lists{
 
-    template <class T> Linked<T>::~Linked(){}
+    template <typename T> Linked<T>::~Linked(){}
     
 
-    template <class T> bool Linked<T>::push(T value){
+    template <typename T> bool Linked<T>::push(T value){
         size++;
         Node *newNode = new Node;
         newNode->value = value;
 
-        if(head == nullptr){
+        if(!head){
             head = newNode;
             newNode->next = nullptr;
             return true;
@@ -25,46 +27,53 @@ namespace Lists{
 
     }
 
-    template <class T> bool Linked<T>::insert(T value, size_t pos){
-        Node *newNode = new Node;
-        newNode->value = value;
-        Node *iterrator = head;
-
-        if(pos > size || pos < 0){
-            throw std::invalid_argument("Index out of bounds!");
-        }else{
-            for(int i = 0; i < pos; i++){
-                *iterrator = iterrator->next;
-            }
-
-            if(pos == 0) head = newNode;
-            newNode->next = iterrator;
-            iterrator->next = newNode;
-            return true;
-        }  
-    	return false;
+    template <typename T> T Linked<T>::pop(){
+        if(!head) throw std::runtime_error("Poping from empty list!");
+        Node *temp = head;
+        T value = temp->value;
+        head = head->next;
+        delete temp;
+        return value;
     }
 
-    template <class T> bool Linked<T>::remove(size_t pos){
+    template <typename T> bool Linked<T>::remove(T value){
         Node *iterator = head;
-        if(pos > size - 1){
-            throw std::invalid_argument("Index out of bounds!");
+        
+    }
+    
+
+    template <typename T> size_t Linked<T>::find(T value){
+        Node *iterator = head;
+
+        for(int i = 1; i < size; i++){
+            if(iterator->value == value) return i;
+            iterator = iterator->next;
         }
-        if(pos == 0){
-            head = head->next;
-            delete iterator;
-            return true;
-        }else{
-            for(int i = 0; i < pos; i++){
-                iterator = iterator->next;
-            }
-            Node *help = iterator;
-            iterator->next = iterator->next->next;
-            delete help;
-            return true;
-        }
-        return false;
+        return -1;
     }
 
+    template <typename T> bool Linked<T>::has(T value){
+        Node *iterator = head;
+
+        for(int i = 0; i < size; i++){
+            if(iterator->value == value) return true;
+            iterator = iterator->next;
+        }
+        return false
+    }
+
+    template <typename T> void Linked<T>::clear(){
+        Node *iterator = head;
+        Node *temp;
+
+        for(int i = 0; i < size; i++){
+            temp = iterator;
+            iterator = iterator->next;
+            delete temp;
+        } 
+
+        head = nullptr;
+        return;
+    }
 
 }
