@@ -3,7 +3,7 @@
 
 #include <cstddef>
 
-namespace Queue {
+namespace Queues {
     /**
      * @brief Basic Queue structure.
      * 
@@ -18,6 +18,13 @@ namespace Queue {
         Node* head;
         Node* tail;
         public:
+        /**
+         * @brief Add an element to the queue. If the action was succesful return true, otherwise false.
+         * 
+         * @param value 
+         * @return true 
+         * @return false 
+         */
         bool enqueue(T value);
         T dequeue();
     };
@@ -26,7 +33,18 @@ namespace Queue {
      * 
      */
     template <typename T>
-    class Cyclic;
+    class Cyclic{
+        private:
+            T *cycle = nullptr;
+            size_t head = 0;
+            size_t tail = 0;
+            size_t capacity = 0;
+            size_t length = 0;
+        public:
+            Cyclic(size_t capacity);
+            bool enqueue(T value);
+            T dequeue();
+    };
     /**
      * @brief Queue that allows priority enqueueing.
      * 
