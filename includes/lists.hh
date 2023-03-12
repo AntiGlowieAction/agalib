@@ -58,8 +58,8 @@ namespace Lists {
         /**
          * @brief Search for an element in the list and if it is present return its index. The index of the
          * first element in the list is equal to 0.The action happens in O(n) time.
-         * If there are multiple copies of the element it returns the position of the first one it finds.
-         * It returns -1 if it did not find the element.
+         * If there are multiple copies of the element, return the position of the first one found.
+         * Return true if removal is succesful, false if the element was not found. 
          * @throws todo: add which error is thrown
          * @param value 
          * @return size_t 
@@ -89,15 +89,54 @@ namespace Lists {
          * 
          */
         T* array = nullptr;
-
-
-        void expand(size_t len);
+        size_t capacity = 0;
+        size_t length = 0;
+        /**
+         * @brief Construct a new Array object.
+         * 
+         * @param len 
+         */
+        Array(size_t len);
+        /**
+         * @brief Adds len number of spaces to the arraylist
+         * 
+         * @param len 
+         */
+        bool expand(size_t len);
+        /**
+         * @brief Add an value to the end of the list:
+         * 
+         * @warning This is ment to be used in conjunction with the poped method to add and remove elements i O(1) time.
+         * @param value 
+         * @return true 
+         * @return false 
+         */
         bool push(T value);
-        bool set(T value, size_t pos);
+        /**
+         * @brief Return and removes the element at the last index.
+         * 
+         * @return T 
+         */
         T pop();
-        T get(size_t pos);
+        /**
+         * @brief Return the index of the first element with passed value.
+         * 
+         * @param value 
+         * @return size_t 
+         */
         size_t find(T value);
+        /**
+         * @brief Check whether there is an element with a certain value in array. 
+         * 
+         * @param value 
+         * @return true 
+         * @return false 
+         */
         bool has(T value);
+        /**
+         * @brief Empty the array.
+         * 
+         */
         void clear();
     };
 }

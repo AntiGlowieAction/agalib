@@ -1,12 +1,13 @@
 #include <cstddef>
 #include <stdexcept>
-#include "..\agalib\includes\lists.hh"
 
+#include "..\agalib\includes\lists.hh"
 
 namespace Lists{
 
-    template <typename T> Linked<T>::~Linked(){}
-    
+    template <typename T> Linked<T>::~Linked() {
+        this->clear();
+    }
 
     template <typename T> bool Linked<T>::push(T value){
         size++;
@@ -38,6 +39,18 @@ namespace Lists{
 
     template <typename T> bool Linked<T>::remove(T value){
         Node *iterator = head;
+        Node *prev = nullptr;
+
+        while(iterator){
+            if(iterator->value == value){
+                prev->next = iterator->next;
+                delete iterator;
+                return true
+            }
+            prev = iterator;
+            iterator = iterator->next;
+        }
+        return false;
         
     }
     
@@ -55,10 +68,11 @@ namespace Lists{
     template <typename T> bool Linked<T>::has(T value){
         Node *iterator = head;
 
-        for(int i = 0; i < size; i++){
+        while (iterator){
             if(iterator->value == value) return true;
             iterator = iterator->next;
         }
+        
         return false
     }
 
@@ -66,14 +80,65 @@ namespace Lists{
         Node *iterator = head;
         Node *temp;
 
-        for(int i = 0; i < size; i++){
+        while (iterator){
             temp = iterator;
             iterator = iterator->next;
             delete temp;
-        } 
+        }
 
         head = nullptr;
         return;
     }
+
+    template <typename T> Array<T>::Array(size_t cap){
+       this->array = new T[cap];
+       this->capacity = cap;
+    }
+
+    template <typename T> bool Array<T>::expand(size_t cap){
+        T *newArray = new T[this->capacity + cap];
+        if(!newArray) return false;
+        memcpy(newArray, this->array, this->capacity);
+        this->capacity += cap;
+        delete this->array;
+        this->array = newArray;
+        return true;
+    }
+
+    template <typename T> bool Array<T>::push(T value){
+        if(length == capacity){
+            if(!expand(capacity)){
+                return false;
+            }
+        }
+        this->array[this->length++] = value;
+        length++;
+        return true; 
+    }
+
+    template <typename T> T Array<T>::pop(){
+        if(length == 0) throw std::runtime_error("Poping from empty array!")
+        return this->array[--(this->length)];
+    }
+
+    template <typename T> size_t Array<T>::find(T value){
+        for(int i = 0; i < length; i++){
+            if(this->array[i] == value) return i;
+        }
+        return -1;
+    }
+
+    template <typename T> bool Array<T>::has(T value){
+        for(int i = 0; i < length; i++){
+            if(this->array[i] == value) return true;
+        }
+        return false;
+    }
+
+    template <typename T> void Array<T>::clear(){
+        this->length = 0;
+    }
+
+
 
 }
