@@ -7,22 +7,13 @@ namespace Lists {
     }
 
     template <typename T> bool Linked<T>::push(T value){
-        size++;
-        Node *newNode = new Node;
-        newNode->value = value;
-
-        if(!head){
-            head = newNode;
-            newNode->next = nullptr;
-            return true;
-        }else{
-            newnode->next = head;
-            head = newNode;
+        Node *node = new Node{value, head};
+        if (!node) {
             return true;
         }
-
+        head = node;
+        size++;
         return false;
-
     }
 
     template <typename T> T Linked<T>::pop(){
