@@ -1,6 +1,7 @@
 #ifndef AGALIB_QUEUE_HH
 #define AGALIB_QUEUE_HH
 
+#include <stdexcept>
 #include <cstddef>
 
 namespace Queues {

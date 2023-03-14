@@ -1,9 +1,6 @@
-#include <cstddef>
-#include <stdexcept>
+#include "../includes/queues.hh"
 
-#include "..\agalib\includes\queues.hh"
-
-namespace Queues{
+namespace Queues {
 
     template <typename T> bool Simple<T>::enqueue(T value){
         Node *node = new Node{value, nullptr};

@@ -1,9 +1,6 @@
-#include <cstddef>
-#include <stdexcept>
+#include "../includes/lists.hh"
 
-#include "..\agalib\includes\lists.hh"
-
-namespace Lists{
+namespace Lists {
 
     template <typename T> Linked<T>::~Linked() {
         this->clear();
@@ -138,7 +135,5 @@ namespace Lists{
     template <typename T> void Array<T>::clear(){
         this->length = 0;
     }
-
-
-
+    
 }

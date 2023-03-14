@@ -1,7 +1,8 @@
-#include <cstddef>
 #ifndef AGALIB_LISTS_HH
 #define AGALIB_LISTS_HH
 
+#include <stdexcept>
+#include <cstddef>
 
 namespace Lists {
     /**
